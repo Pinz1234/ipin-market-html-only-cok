@@ -1,680 +1,368 @@
 <!doctype html>
-<html lang="id" data-theme="dark">
+<html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1220" />
-  <title>IPIN MARKET</title>
-  <meta name="description" content="IPIN MARKET — Panel • Sewa Bot • Script. Clean, modern, premium." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IPIN SHOP</title>
+  <meta name="description" content="Katalog paket & kontak IPIN SHOP." />
 
   <style>
     :root{
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      --max: 1180px;
-      --r: 16px;
-      --r2: 22px;
-
-      /* Dark (default) */
-      --bg0:#070b14;
-      --bg1:#0b1220;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.09);
-      --stroke: rgba(255,255,255,.12);
-
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.48);
-
-      --acc:#3b82f6;        /* blue */
-      --acc2:#22c55e;       /* green */
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --shadow2: 0 12px 34px rgba(0,0,0,.28);
-      --ring: 0 0 0 6px rgba(59,130,246,.14);
+      --bg:#0a0c12; --fg:#ebeef5;
+      --muted:rgba(235,238,245,.72);
+      --glass:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --r:18px;
     }
-    :root[data-theme="light"]{
-      --bg0:#f6f8ff;
-      --bg1:#eef2ff;
-      --card: rgba(0,0,0,.04);
-      --card2: rgba(0,0,0,.06);
-      --stroke: rgba(0,0,0,.12);
-
-      --text: rgba(10,14,24,.92);
-      --muted: rgba(10,14,24,.68);
-      --muted2: rgba(10,14,24,.50);
-
-      --shadow: 0 20px 60px rgba(0,0,0,.12);
-      --shadow2: 0 12px 34px rgba(0,0,0,.10);
-      --ring: 0 0 0 6px rgba(59,130,246,.10);
-    }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
-      margin:0; font-family:var(--font); color:var(--text);
-      background:
-        radial-gradient(1100px 520px at 15% 10%, rgba(59,130,246,.16), transparent 60%),
-        radial-gradient(900px 480px at 85% 20%, rgba(34,197,94,.10), transparent 58%),
-        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 70%, var(--bg0) 100%);
-      overflow-x:hidden;
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--fg); background:var(--bg); overflow-x:hidden;
     }
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:18px}
+    .wrap{max-width:1100px; margin:0 auto; padding:16px}
+    .gridOverlay{
+      position:fixed; inset:0; pointer-events:none; opacity:.35;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at 50% 10%, black 18%, transparent 70%);
+      z-index:-3;
+    }
+    .blob{
+      position:fixed; border-radius:999px; filter:blur(48px); opacity:.35; z-index:-4;
+      animation: floaty 7.2s ease-in-out infinite;
+    }
+    .b1{width:420px;height:420px; left:-140px; top:-140px;
+      background: radial-gradient(circle at 30% 30%, rgba(168,85,247,.95), rgba(168,85,247,0) 60%);}
+    .b2{width:520px;height:520px; right:-180px; top:80px; animation-delay:1.2s;
+      background: radial-gradient(circle at 40% 40%, rgba(34,211,238,.9), rgba(34,211,238,0) 62%);}
+    .b3{width:560px;height:560px; left:35%; bottom:-240px; animation-delay:2.1s;
+      background: radial-gradient(circle at 50% 50%, rgba(34,197,94,.9), rgba(34,197,94,0) 60%);}
+    @keyframes floaty{0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-12px)}}
 
-    /* NAV */
+    .glass{
+      background:var(--glass);
+      border:1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+    .gradBorder{ position:relative; border-radius:var(--r); }
+    .gradBorder:before{
+      content:""; position:absolute; inset:-1px; border-radius:var(--r); padding:1px;
+      background: linear-gradient(120deg, rgba(168,85,247,.75), rgba(34,211,238,.45), rgba(34,197,94,.35));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events:none;
+    }
+
     .nav{
-      position:sticky; top:0; z-index:60;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(10,14,26,.82), rgba(10,14,26,.55));
-      border-bottom:1px solid rgba(255,255,255,.08);
+      position:sticky; top:0; z-index:50; padding-top:12px;
     }
-    :root[data-theme="light"] .nav{
-      background: linear-gradient(180deg, rgba(246,248,255,.88), rgba(246,248,255,.55));
-      border-bottom:1px solid rgba(0,0,0,.10);
+    .navInner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px; border-radius:var(--r);
     }
-    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px}
-    .logo{
-      width:38px;height:38px;border-radius:14px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 45%),
-                  linear-gradient(135deg, rgba(59,130,246,.95), rgba(15,23,42,.9));
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 12px 30px rgba(59,130,246,.18);
+    .brand{display:flex; gap:10px; align-items:center}
+    .icon{
+      width:38px;height:38px; border-radius:14px;
+      display:grid; place-items:center; background:rgba(255,255,255,.10);
     }
-    :root[data-theme="light"] .logo{border:1px solid rgba(0,0,0,.10)}
-    .brand small{display:block; margin-top:1px; color:var(--muted2); font-weight:800}
-
-    .nav-links{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:9px 12px; border-radius:999px;
-      border:1px solid var(--stroke);
-      background: var(--card);
-      font-weight:900; font-size:14px;
-      cursor:pointer;
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
-      user-select:none;
-    }
-    .pill:hover{transform: translateY(-1px); background: var(--card2); box-shadow: var(--ring)}
-    .pill.primary{
-      border:none;
-      background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(37,99,235,.92));
-      color:white;
-      box-shadow: 0 16px 38px rgba(59,130,246,.18);
-    }
-    .pill.primary:hover{transform: translateY(-2px); box-shadow: 0 18px 44px rgba(59,130,246,.22)}
-
-    /* HERO */
-    .hero{padding:44px 0 12px}
-    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:14px}
-    .card{
-      border-radius: var(--r2);
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, var(--card2), var(--card));
-      box-shadow: var(--shadow);
-    }
-    .hero-left{padding:26px}
-    .kicker{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:7px 10px; border-radius:999px;
-      border:1px solid var(--stroke);
-      background: var(--card);
-      color:var(--muted);
-      font-size:13px; font-weight:900;
-    }
-    .dot{width:8px;height:8px;border-radius:999px;background:var(--acc2); box-shadow: var(--ring)}
-    h1{margin:14px 0 10px; font-size: clamp(28px, 4.6vw, 46px); line-height:1.07; letter-spacing:-.8px}
-    .sub{margin:0 0 16px; color:var(--muted); font-size:15px; line-height:1.7}
-    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .brandTitle{font-weight:800; letter-spacing:.2px}
+    .brandSub{font-size:12px; color:rgba(235,238,245,.6); margin-top:2px}
 
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:12px 14px; border-radius: 16px;
-      border:1px solid var(--stroke);
-      background: var(--card);
-      font-weight:950;
-      cursor:pointer;
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
-      user-select:none;
+      border-radius:var(--r);
+      padding:10px 14px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      display:inline-flex; align-items:center; gap:8px;
     }
-    .btn:hover{transform: translateY(-1px); background: var(--card2); box-shadow: var(--ring)}
-    .btn.primary{
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.12); box-shadow:0 10px 40px rgba(168,85,247,.22)}
+    .btnPrimary{
       border:none;
-      background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(37,99,235,.92));
-      color:white;
-      box-shadow: 0 16px 38px rgba(59,130,246,.18);
+      background: linear-gradient(90deg, rgba(168,85,247,.92), rgba(217,70,239,.72));
+      box-shadow:0 10px 40px rgba(168,85,247,.18);
     }
-    .btn.primary:hover{transform: translateY(-2px); box-shadow: 0 18px 44px rgba(59,130,246,.22)}
 
-    .hero-right{padding:18px}
-    .mini{display:grid; gap:10px}
-    .box{
-      border-radius: var(--r);
-      border:1px solid var(--stroke);
-      background: var(--card);
+    .hero{margin-top:14px}
+    .heroBox{padding:18px; border-radius:var(--r); overflow:hidden; position:relative}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      font-size:12px; color:rgba(235,238,245,.75);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:#4ade80; box-shadow:0 0 18px rgba(74,222,128,.55); animation:pulse 1.4s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+
+    h1{margin:14px 0 0; font-size:34px; line-height:1.05}
+    .subtitle{margin:10px 0 0; color:var(--muted); max-width:720px}
+    .heroActions{margin-top:16px; display:flex; flex-wrap:wrap; gap:10px}
+
+    .section{padding:16px 0 6px}
+    .section h2{margin:0; font-size:22px}
+    .section p{margin:8px 0 0; color:var(--muted)}
+
+    .tabs{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .tab{cursor:pointer}
+    .tab.active{
+      background:rgba(255,255,255,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+    }
+
+    .cat{margin-top:18px}
+    .catHead{display:flex; align-items:flex-end; justify-content:space-between; gap:10px}
+    .catTitle{font-size:18px; font-weight:900}
+    .catSub{font-size:13px; color:rgba(235,238,245,.62); margin-top:4px}
+
+    .grid{
+      margin-top:12px;
+      display:grid; gap:12px;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    @media (min-width:720px){ .grid{grid-template-columns: repeat(2, minmax(0, 1fr));} }
+    @media (min-width:1040px){ .grid{grid-template-columns: repeat(3, minmax(0, 1fr));} }
+
+    .card{
+      border-radius:var(--r);
       padding:14px;
-    }
-    .box h3{margin:0 0 6px; font-size:14px}
-    .box p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
-
-    /* SECTION */
-    .section{padding:22px 0}
-    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:12px}
-    h2{margin:0; font-size:18px}
-    .hint{color:var(--muted2); font-size:13px; font-weight:900}
-
-    .grid{display:grid; gap:12px; grid-template-columns: repeat(3, minmax(0, 1fr))}
-    .tile{
-      border-radius: var(--r2);
-      border:1px solid var(--stroke);
-      background: var(--card);
-      padding:16px;
-      box-shadow: var(--shadow2);
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
       position:relative;
       overflow:hidden;
+      transform: translateZ(0);
     }
-    .tile:hover{transform: translateY(-2px); background: var(--card2); box-shadow: var(--shadow)}
+    .card:hover{box-shadow:0 18px 60px rgba(168,85,247,.14)}
+    .cardGlow{
+      position:absolute; left:-46px; top:14px; width:140px; height:140px;
+      border-radius:999px; filter:blur(28px); opacity:.28;
+      background: radial-gradient(circle, rgba(168,85,247,.95), rgba(168,85,247,0) 70%);
+    }
+    .cardTop{display:flex; justify-content:space-between; gap:10px}
+    .name{font-size:16px; font-weight:900}
+    .price{margin-top:4px; color:rgba(235,238,245,.72)}
     .badge{
-      position:absolute; top:12px; right:12px;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid var(--stroke);
-      background: var(--card2);
-      font-weight:950; font-size:12px;
-      color: var(--text);
+      font-size:12px; font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      height:fit-content;
+      white-space:nowrap;
     }
-    .badge.reco{border-color: rgba(34,197,94,.28); background: rgba(34,197,94,.10)}
-    .badge.best{border-color: rgba(59,130,246,.32); background: rgba(59,130,246,.12)}
-    .tile h3{margin:0; font-size:16px}
-    .list{margin-top:10px; display:grid; gap:6px}
-    .li{display:flex; gap:8px; align-items:center; color:var(--muted); font-size:13px; line-height:1.5}
-    .ico{
-      width:18px;height:18px;border-radius:8px;
-      border:1px solid var(--stroke);
-      background: var(--card2);
-      display:flex; align-items:center; justify-content:center;
-      font-size:12px;
-    }
-    .amt{margin-top:12px; font-weight:950; font-size:20px}
-    .amt span{font-size:12px; color:var(--muted2); font-weight:900}
-    .btnrow{display:flex; gap:8px; margin-top:12px}
-    .btn.sm{width:100%; padding:10px 12px; border-radius:14px; font-size:13px}
-    .btn.alt{
-      border:1px solid rgba(34,197,94,.28);
-      background: rgba(34,197,94,.10);
-    }
-    .btn.alt:hover{box-shadow: 0 0 0 6px rgba(34,197,94,.10)}
+    ul{margin:10px 0 0; padding:0 0 0 14px; color:rgba(235,238,245,.72)}
+    li{margin:6px 0}
+    .cardBtns{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap}
 
-    /* MODAL (FIXED) */
-    .modal-backdrop{
-      position:fixed; inset:0; z-index:200;
-      display:none; align-items:center; justify-content:center;
-      padding:18px;
-      background: rgba(0,0,0,.55);
-    }
-    .modal{
-      width:min(920px, 100%);
-      max-height: 88vh;
-      overflow:auto;
-      border-radius: var(--r2);
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, var(--card2), var(--card));
-      box-shadow: var(--shadow);
-    }
-    .modal-inner{padding:16px}
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .field{display:grid; gap:6px; margin-top:10px; flex:1; min-width:240px}
-    label{font-size:12px; color:var(--muted2); font-weight:900}
-    input, textarea{
-      width:100%;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid var(--stroke);
-      background: var(--card);
-      color: var(--text);
-      outline:none;
-      font-weight:800;
-    }
-    textarea{min-height:220px; resize:vertical; font-weight:700; line-height:1.5}
-    .note{color:var(--muted); font-size:13px; line-height:1.6}
+    .footer{padding:18px 0 30px; color:rgba(235,238,245,.5); font-size:12px}
 
-    /* TOAST */
-    .toast{
-      position:fixed; left:50%; bottom:16px; transform:translateX(-50%);
-      padding:10px 12px; border-radius:999px;
-      background: rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.12);
-      color:rgba(255,255,255,.92);
-      backdrop-filter: blur(10px);
-      opacity:0; pointer-events:none;
-      transition: opacity .18s ease, transform .18s ease;
-      z-index:300;
-      font-weight:900;
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
-    }
-    :root[data-theme="light"] .toast{
-      background: rgba(255,255,255,.85);
-      border:1px solid rgba(0,0,0,.12);
-      color: rgba(0,0,0,.84);
-    }
-    .toast.show{opacity:1; transform:translateX(-50%) translateY(-2px)}
-
-    /* REVEAL */
-    .reveal{opacity:0; transform: translateY(18px); transition: all .65s cubic-bezier(.2,.8,.2,1)}
-    .reveal.show{opacity:1; transform: translateY(0)}
-
-    @media (max-width: 980px){
-      .hero-grid{grid-template-columns:1fr}
-      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
-    }
-    @media (max-width: 520px){
-      .grid{grid-template-columns:1fr}
-      .nav-links .pill.link{display:none}
-    }
-    html{scroll-behavior:smooth}
+    /* pop-in animation */
+    .pop{animation: pop .55s ease both}
+    @keyframes pop{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:translateY(0)}}
   </style>
 </head>
 
 <body>
-  <div class="nav">
-    <div class="wrap nav-inner">
-      <div class="brand reveal">
-        <div class="logo"></div>
-        <div>
-          <div style="line-height:1.1">IPIN MARKET</div>
-          <small>Panel • Sewa Bot • Script</small>
-        </div>
-      </div>
+  <div class="gridOverlay"></div>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
 
-      <div class="nav-links reveal">
-        <a class="pill link" href="#panel">Panel</a>
-        <a class="pill link" href="#sewa">Sewa Bot</a>
-        <a class="pill link" href="#script">Script</a>
-        <a class="pill link" href="#contact">Kontak</a>
-        <button class="pill" id="themeToggle" type="button">🌙</button>
-        <button class="pill" id="btnDashboard" type="button">Dashboard</button>
-        <button class="pill primary" id="quickOrder" type="button">Order Cepat</button>
-      </div>
-    </div>
-  </div>
-
-  <main class="wrap">
-    <section class="hero" id="home">
-      <div class="hero-grid">
-        <div class="card hero-left reveal">
-          <div class="kicker"><span class="dot"></span> Clean • Modern • Premium</div>
-          <h1>Panel, sewa bot, dan script.</h1>
-          <p class="sub">
-            Klik paket → format order otomatis ke WhatsApp.  
-            Untuk <b>SC MD</b> ada tombol <b>TEST</b> (masuk grup).
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="#panel">Lihat Panel</a>
-            <a class="btn" href="#sewa">Sewa Bot</a>
-            <a class="btn" href="#script">Promo Script</a>
-          </div>
-        </div>
-
-        <div class="card hero-right reveal">
-          <div class="mini">
-            <div class="box">
-              <h3>Order</h3>
-              <p>Pilih paket → klik Pesan → chat admin kebuka otomatis.</p>
-            </div>
-            <div class="box">
-              <h3>Test Script</h3>
-              <p>Khusus MD ada tombol test ke grup kamu.</p>
-            </div>
-            <div class="box">
-              <h3>Edit dari HP</h3>
-              <p>Pakai dashboard buat ubah harga/link & data.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="panel">
-      <div class="section-head">
-        <h2 class="reveal">Panel Pterodactyl</h2>
-        <div class="hint reveal">Paket & spek</div>
-      </div>
-      <div class="grid" id="panelGrid"></div>
-    </section>
-
-    <section class="section" id="sewa">
-      <div class="section-head">
-        <h2 class="reveal">Sewa Bot</h2>
-        <div class="hint reveal">Maks 2 bulan = 60K</div>
-      </div>
-      <div class="grid" id="sewaGrid"></div>
-    </section>
-
-    <section class="section" id="script">
-      <div class="section-head">
-        <h2 class="reveal">Promo Script</h2>
-        <div class="hint reveal">MD ada TEST • Bug tidak</div>
-      </div>
-      <div class="grid" id="scriptGrid"></div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="section-head">
-        <h2 class="reveal">Kontak</h2>
-        <div class="hint reveal">Link resmi</div>
-      </div>
-
-      <div class="card reveal" style="padding:16px">
-        <div class="actions" style="margin:0">
-          <a class="pill primary" id="waBtn" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
-          <a class="pill" id="tgBtn" href="#" target="_blank" rel="noreferrer">Telegram</a>
-          <a class="pill" id="groupBtn" href="#" target="_blank" rel="noreferrer">Grup WA</a>
-          <a class="pill" id="channelBtn" href="#" target="_blank" rel="noreferrer">Channel WA</a>
-        </div>
-        <div class="note" style="margin-top:12px">
-          Setelah bayar/TF, kirim bukti ke admin untuk konfirmasi.
-        </div>
-      </div>
-    </section>
-
-    <div class="note reveal" style="padding:18px 0 40px">
-      © <span id="year"></span> IPIN MARKET
-    </div>
-  </main>
-
-  <!-- MODAL -->
-  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-    <div class="modal">
-      <div class="modal-inner">
-        <div style="display:flex; justify-content:space-between; gap:10px; align-items:center">
+  <div class="wrap">
+    <!-- NAV -->
+    <div class="nav">
+      <div class="navInner glass gradBorder">
+        <div class="brand">
+          <div class="icon">⚡</div>
           <div>
-            <div style="font-weight:950; font-size:16px">Dashboard</div>
-            <div class="note">Edit link & data → Save</div>
-          </div>
-          <button class="pill" id="btnClose" type="button">Tutup</button>
-        </div>
-
-        <div class="row">
-          <div class="field">
-            <label>WhatsApp (wa.me)</label>
-            <input id="cfg_wa" />
-          </div>
-          <div class="field">
-            <label>Telegram</label>
-            <input id="cfg_tg" />
+            <div class="brandTitle">IPIN SHOP</div>
+            <div class="brandSub">Katalog • Order • Kontak</div>
           </div>
         </div>
-        <div class="row">
-          <div class="field">
-            <label>Grup WA (untuk TEST)</label>
-            <input id="cfg_group" />
-          </div>
-          <div class="field">
-            <label>Channel WA</label>
-            <input id="cfg_channel" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label>DATA JSON (panel/sewa/script)</label>
-          <textarea id="dataJson"></textarea>
-        </div>
-
-        <div class="row">
-          <button class="btn primary" id="btnSave" type="button">Save</button>
-          <button class="btn" id="btnReset" type="button">Reset</button>
-          <button class="btn" id="btnExport" type="button">Export</button>
-          <button class="btn" id="btnImport" type="button">Import</button>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn" href="#paket">Paket</a>
+          <a class="btn btnPrimary" href="#kontak">Kontak</a>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="toast" id="toast"></div>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="heroBox glass gradBorder pop">
+        <div class="pill"><span class="dot"></span> Open Order • Respon cepat</div>
+        <h1>IPIN SHOP<br><span style="font-size:22px;color:rgba(235,238,245,.72)">Panel • Bot • Layanan</span></h1>
+        <p class="subtitle">
+          Web katalog simple (tanpa copy UI orang lain) tapi tetap neon + animasi halus.
+          Pilih paket → klik order → chat.
+        </p>
+        <div class="heroActions">
+          <a class="btn btnPrimary" href="#paket">Lihat Paket</a>
+          <a class="btn" href="#kontak">Kontak</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACKAGES -->
+    <div class="section" id="paket">
+      <h2>Daftar Paket</h2>
+      <p>Pilih kategori, lalu pilih paketnya.</p>
+
+      <div class="tabs" id="tabs"></div>
+      <div id="cats"></div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section" id="kontak">
+      <h2>Kontak</h2>
+      <p>Biar satset: kirim kategori + nama paket + durasi.</p>
+
+      <div class="glass gradBorder" style="border-radius:var(--r); padding:14px; margin-top:12px">
+        <div style="display:flex; flex-wrap:wrap; gap:10px">
+          <a class="btn" id="wa" target="_blank" rel="noreferrer">WhatsApp</a>
+          <a class="btn" id="tg" target="_blank" rel="noreferrer">Telegram</a>
+          <a class="btn" id="gwa" target="_blank" rel="noreferrer">Grup WA</a>
+          <a class="btn" id="cwa" target="_blank" rel="noreferrer">Channel WA</a>
+        </div>
+
+        <div style="margin-top:12px; padding:12px; border-radius:var(--r); border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.05)">
+          <div style="font-size:13px; color:rgba(235,238,245,.7)">Preview bot (Telegram)</div>
+          <a id="preview" style="display:inline-block;margin-top:6px;text-decoration:underline" target="_blank" rel="noreferrer"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© <span id="year"></span> IPIN SHOP • template custom (bukan copy UI pihak lain)</div>
+  </div>
 
   <script>
-    const STORE_KEY = "ipin_market_clean_v1";
-
-    const DEFAULT_CFG = {
-      wa: "https://wa.me/6282261169349",
+    const CONTACT = {
+      whatsapp: "https://wa.me/6282261169349",
       telegram: "https://t.me/IPINSHOP",
-      waGroup: "https://chat.whatsapp.com/LvA30WKiFgB0t5yFjFmWsz?mode=hqrc",
-      waChannel: "https://whatsapp.com/channel/0029VbBKScNAInPfll7NHM0O"
+      groupWhatsapp: "https://chat.whatsapp.com/LvA30WKiFgB0t5yFjFmWsz?mode=hqrc",
+      channelWhatsapp: "https://whatsapp.com/channel/0029VbBKScNAInPfll7NHM0O",
+      previewBot: "https://t.me/ipinotp_bot",
     };
 
-    const DEFAULT_DATA = {
-      panel: [
-        { name:"1GB", price:3000, badge:"", badgeStyle:"", items:["1.5GB RAM","3GB Disk","100% CPU","Garansi 30 Hari"] },
-        { name:"2GB", price:5000, badge:"", badgeStyle:"", items:["3.5GB RAM","6GB Disk","190% CPU","Garansi 30 Hari"] },
-        { name:"3GB", price:7000, badge:"", badgeStyle:"", items:["4GB RAM","7GB Disk","250% CPU","Garansi 30 Hari"] },
-        { name:"4GB", price:9000, badge:"Recommended", badgeStyle:"reco", items:["5GB RAM","9GB Disk","290% CPU","Garansi 30 Hari"] },
-        { name:"5GB", price:11000, badge:"", badgeStyle:"", items:["6GB RAM","13GB Disk","330% CPU","Garansi 30 Hari"] },
-        { name:"6GB", price:13000, badge:"", badgeStyle:"", items:["7GB RAM","15GB Disk","450% CPU","Garansi 30 Hari"] },
-        { name:"7GB", price:15000, badge:"", badgeStyle:"", items:["8GB RAM","17GB Disk","500% CPU","Garansi 30 Hari"] },
-        { name:"PREMIUM", price:25000, badge:"TERBAIK", badgeStyle:"best", items:["RAM Unlimited","25GB Disk","CPU Unlimited","Garansi 30 Hari"] }
-      ],
-      sewa: [
-        { name:"15 Hari", price:15000, badge:"", badgeStyle:"", items:["Akses premium","Online 24 jam","Anti delay/error","+ fitur bertambah"] },
-        { name:"1 Bulan", price:35000, badge:"Recommended", badgeStyle:"reco", items:["Akses premium","Online 24 jam","Anti delay/error","+ fitur bertambah","Jaga grup"] },
-        { name:"2 Bulan", price:60000, badge:"TERBAIK", badgeStyle:"best", items:["Akses premium","Online 24 jam","Anti delay/error","+ fitur bertambah","Jaga grup"] }
-      ],
-      script: [
-        { name:"SC IPIN MD V7", price:55000, category:"md", badge:"MD", badgeStyle:"reco", items:["Multi device","Stabil","Fitur lengkap","Support pasang"] },
-        { name:"SC BUG OTAX", price:40000, category:"bug", badge:"BUG", badgeStyle:"", items:["Bug only","No test","Private"] }
-      ]
-    };
+    const DATA = [
+      {
+        id: "panel",
+        title: "Panel Pterodactyl",
+        subtitle: "Paket bulanan, performa stabil.",
+        items: [
+          { name: "1GB", price: "Rp 3.000 / bulan", bullets: ["RAM 1.5GB","Disk 3GB","CPU 100%","Garansi 30 Hari"] },
+          { name: "2GB", price: "Rp 5.000 / bulan", bullets: ["RAM 3.5GB","Disk 6GB","CPU 190%","Garansi 30 Hari"] },
+          { name: "3GB", price: "Rp 7.000 / bulan", bullets: ["RAM 4GB","Disk 7GB","CPU 250%","Garansi 30 Hari"] },
+          { name: "4GB", price: "Rp 9.000 / bulan", badge: "Recommended", bullets: ["RAM 5GB","Disk 9GB","CPU 290%","Garansi 30 Hari"] },
+          { name: "5GB", price: "Rp 11.000 / bulan", bullets: ["RAM 6GB","Disk 13GB","CPU 330%","Garansi 30 Hari"] },
+          { name: "6GB", price: "Rp 13.000 / bulan", bullets: ["RAM 7GB","Disk 15GB","CPU 450%","Garansi 30 Hari"] },
+          { name: "7GB", price: "Rp 15.000 / bulan", bullets: ["RAM 8GB","Disk 17GB","CPU 500%","Garansi 30 Hari"] },
+          { name: "Premium / Unlimited", price: "Rp 25.000 / bulan", badge: "Best Value", bullets: ["RAM Unlimited","Disk 25GB","CPU Unlimited","Garansi 30 Hari"] },
+        ],
+      },
+      {
+        id: "wa-bot",
+        title: "Sewa Bot WhatsApp",
+        subtitle: "Bot aktif 24 jam, fitur premium.",
+        items: [
+          { name: "15 Hari", price: "Rp 10.000", bullets: ["Bot aktif 24 jam","Akses fitur premium","Anti delay / error","Bisa masuk grup"] },
+          { name: "1 Bulan", price: "Rp 20.000", badge: "Recommended", bullets: ["Bot aktif 24 jam","Akses fitur premium","Anti delay / error","Fitur jaga grup","Update fitur"] },
+          { name: "2 Bulan", price: "Rp 35.000", bullets: ["Bot aktif 24 jam","Akses fitur premium","Anti delay / error","Fitur jaga grup","Update fitur"] },
+        ],
+      },
+      {
+        id: "script",
+        title: "Script Bot WhatsApp",
+        subtitle: "Katalog script + info singkat (detail via chat).",
+        items: [
+          { name: "SCRIPT IPIN MD V7", price: "Rp 55.000", bullets: ["Keamanan database","1200+ fitur","Cocok untuk sewa grup","Auto order (opsional)","Auto AI","Demo di grup"] },
+          { name: "SCRIPT ALICE ASSISTANT", price: "Rp 50.000", bullets: ["Bot multifungsi","AI aktif","50+ fitur scrape","Stabil & ringan","Demo di grup"] },
+        ],
+      },
+      {
+        id: "telegram",
+        title: "Bot Telegram",
+        subtitle: "Ada preview bot untuk lihat demo.",
+        items: [
+          { name: "Preview Bot", price: "Klik link demo", badge:"Preview", bullets: ["Ringan & stabil","Buka preview di Telegram"] },
+        ],
+      },
+    ];
 
-    const rupiah = (n) => "Rp" + new Intl.NumberFormat("id-ID").format(n);
+    // contacts
+    document.getElementById("wa").href = CONTACT.whatsapp;
+    document.getElementById("tg").href = CONTACT.telegram;
+    document.getElementById("gwa").href = CONTACT.groupWhatsapp;
+    document.getElementById("cwa").href = CONTACT.channelWhatsapp;
+    const p = document.getElementById("preview");
+    p.href = CONTACT.previewBot;
+    p.textContent = CONTACT.previewBot;
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    const toastEl = document.getElementById("toast");
-    let toastTimer = null;
-    function toast(msg){
-      toastEl.textContent = msg;
-      toastEl.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=>toastEl.classList.remove("show"), 1400);
-    }
-
-    function loadStore(){
-      try{
-        const raw = localStorage.getItem(STORE_KEY);
-        if(!raw) return { cfg: DEFAULT_CFG, data: DEFAULT_DATA };
-        const obj = JSON.parse(raw);
-        return { cfg: obj.cfg || DEFAULT_CFG, data: obj.data || DEFAULT_DATA };
-      }catch(e){
-        return { cfg: DEFAULT_CFG, data: DEFAULT_DATA };
-      }
-    }
-    function saveStore(payload){ localStorage.setItem(STORE_KEY, JSON.stringify(payload)); }
-
-    function mountTheme(){
-      const root = document.documentElement;
-      const saved = localStorage.getItem("theme") || "dark";
-      root.setAttribute("data-theme", saved);
-      document.getElementById("themeToggle").textContent = saved === "light" ? "☀️" : "🌙";
-      document.getElementById("themeToggle").onclick = ()=>{
-        const cur = root.getAttribute("data-theme");
-        const next = cur === "light" ? "dark" : "light";
-        root.setAttribute("data-theme", next);
-        localStorage.setItem("theme", next);
-        document.getElementById("themeToggle").textContent = next === "light" ? "☀️" : "🌙";
-        toast(next === "light" ? "Light" : "Dark");
-      };
-    }
-
-    function mountLinks(cfg){
-      document.getElementById("waBtn").href = cfg.wa;
-      document.getElementById("tgBtn").href = cfg.telegram;
-      document.getElementById("groupBtn").href = cfg.waGroup;
-      document.getElementById("channelBtn").href = cfg.waChannel;
-      document.getElementById("year").textContent = new Date().getFullYear();
-    }
-
-    function openWA(cfg, msg){
-      const url = cfg.wa + "?text=" + encodeURIComponent(msg);
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    function orderMsg(type, x){
-      const lines = [
-        "Halo admin, saya mau order.",
-        "",
-        "Tipe: " + type,
-        "Produk: " + x.name,
-        "Harga: " + rupiah(x.price),
-        "Detail:",
-        ...(x.items||[]).map(t=>"- " + t),
-        "",
-        "Nama:",
-        "Nomor WA:",
-        "Catatan:"
-      ];
-      if(type === "Panel"){
-        lines.push("", "Username panel:", "Password (opsional):");
-      }
-      return lines.join("\n");
-    }
-
-    function tileHTML(x, perText){
-      const badge = x.badge ? `<div class="badge ${x.badgeStyle||""}">${x.badge}</div>` : "";
-      const icons = ["⚡","🛡️","💾","🚀","✅","⭐"];
-      const list = (x.items||[]).slice(0,6).map((t,i)=>`
-        <div class="li"><span class="ico">${icons[i]||"•"}</span><span>${t}</span></div>
-      `).join("");
-
-      const showTest = String(x.category||"").toLowerCase() === "md"; // MD only
-
-      return `
-        <div class="tile reveal">
-          ${badge}
-          <h3>${x.name}</h3>
-          <div class="list">${list}</div>
-          <div class="amt">${rupiah(x.price)} <span>${perText}</span></div>
-          <div class="btnrow">
-            <button class="btn sm primary" data-order>Pesan</button>
-            ${showTest ? `<button class="btn sm alt" data-test>Test</button>` : ``}
-          </div>
-        </div>
-      `;
-    }
-
-    function hook(gridEl, cfg, type, arr){
-      [...gridEl.querySelectorAll(".tile")].forEach((tile, idx)=>{
-        const x = arr[idx];
-        tile.querySelector("[data-order]").onclick = ()=> openWA(cfg, orderMsg(type, x));
-
-        const t = tile.querySelector("[data-test]");
-        if(t){
-          t.onclick = ()=> {
-            window.open(cfg.waGroup, "_blank", "noopener,noreferrer");
-            toast("Buka grup untuk test");
-          };
-        }
-      });
-    }
-
-    // Modal
-    const modalBackdrop = document.getElementById("modalBackdrop");
-    function openModal(){
-      modalBackdrop.style.display = "flex";
-      const store = loadStore();
-      document.getElementById("cfg_wa").value = store.cfg.wa;
-      document.getElementById("cfg_tg").value = store.cfg.telegram;
-      document.getElementById("cfg_group").value = store.cfg.waGroup;
-      document.getElementById("cfg_channel").value = store.cfg.waChannel;
-      document.getElementById("dataJson").value = JSON.stringify(store.data, null, 2);
-    }
-    function closeModal(){ modalBackdrop.style.display = "none"; }
-
-    document.getElementById("btnDashboard").onclick = openModal;
-    document.getElementById("btnClose").onclick = closeModal;
-    modalBackdrop.addEventListener("click", (e)=>{ if(e.target===modalBackdrop) closeModal(); });
-
-    document.getElementById("btnSave").onclick = ()=>{
-      try{
-        const cfg = {
-          wa: document.getElementById("cfg_wa").value.trim(),
-          telegram: document.getElementById("cfg_tg").value.trim(),
-          waGroup: document.getElementById("cfg_group").value.trim(),
-          waChannel: document.getElementById("cfg_channel").value.trim()
-        };
-        const data = JSON.parse(document.getElementById("dataJson").value);
-        saveStore({ cfg, data });
-        render();
-        toast("Saved");
-        closeModal();
-      }catch(e){ alert("JSON error: " + e.message); }
-    };
-
-    document.getElementById("btnReset").onclick = ()=>{
-      saveStore({ cfg: DEFAULT_CFG, data: DEFAULT_DATA });
-      render();
-      toast("Reset");
-      closeModal();
-    };
-
-    document.getElementById("btnExport").onclick = async ()=>{
-      const raw = localStorage.getItem(STORE_KEY) || "";
-      try{ await navigator.clipboard.writeText(raw); toast("Export OK"); }
-      catch(e){ alert("Gagal export"); }
-    };
-
-    document.getElementById("btnImport").onclick = ()=>{
-      const txt = prompt("Paste export JSON:");
-      if(!txt) return;
-      try{
-        saveStore(JSON.parse(txt));
-        render();
-        toast("Import OK");
-        closeModal();
-      }catch(e){ alert("Import error: " + e.message); }
-    };
-
-    document.getElementById("quickOrder").onclick = ()=>{
-      document.querySelector("#panel").scrollIntoView({behavior:"smooth", block:"start"});
-      toast("Scroll ke panel");
-    };
-
-    // Reveal
-    let observer=null;
-    function observeReveal(){
-      if(observer) observer.disconnect();
-      observer = new IntersectionObserver(entries=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            e.target.classList.add("show");
-            observer.unobserve(e.target);
-          }
-        });
-      },{threshold:.12});
-      document.querySelectorAll(".reveal").forEach(el=>{
-        if(!el.classList.contains("show")) observer.observe(el);
-      });
-    }
+    // render tabs + categories
+    const tabs = document.getElementById("tabs");
+    const cats = document.getElementById("cats");
+    let active = DATA[0]?.id;
 
     function render(){
-      const { cfg, data } = loadStore();
-      mountLinks(cfg);
+      tabs.innerHTML = "";
+      DATA.forEach(c=>{
+        const a = document.createElement("a");
+        a.className = "btn tab" + (c.id===active ? " active" : "");
+        a.textContent = c.title;
+        a.href = "#paket";
+        a.onclick = (e)=>{ e.preventDefault(); active=c.id; render(); };
+        tabs.appendChild(a);
+      });
 
-      const panelGrid = document.getElementById("panelGrid");
-      const sewaGrid = document.getElementById("sewaGrid");
-      const scriptGrid = document.getElementById("scriptGrid");
+      cats.innerHTML = "";
+      const cat = DATA.find(x=>x.id===active);
+      if(!cat) return;
 
-      panelGrid.innerHTML = data.panel.map(x=>tileHTML(x,"/bulan")).join("");
-      sewaGrid.innerHTML = data.sewa.map(x=>tileHTML(x,"/paket")).join("");
-      scriptGrid.innerHTML = data.script.map(x=>tileHTML(x,"")).join("");
+      const wrap = document.createElement("div");
+      wrap.className = "cat pop";
 
-      hook(panelGrid, cfg, "Panel", data.panel);
-      hook(sewaGrid, cfg, "Sewa Bot", data.sewa);
-      hook(scriptGrid, cfg, "Script", data.script);
+      const head = document.createElement("div");
+      head.className = "catHead";
+      head.innerHTML = `
+        <div>
+          <div class="catTitle">${cat.title}</div>
+          <div class="catSub">${cat.subtitle}</div>
+        </div>
+        <a class="btn btnPrimary" href="#kontak">Order</a>
+      `;
+      wrap.appendChild(head);
 
-      observeReveal();
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      cat.items.forEach(item=>{
+        const card = document.createElement("div");
+        card.className = "card glass gradBorder";
+        card.innerHTML = `
+          <div class="cardGlow"></div>
+          <div class="cardTop">
+            <div>
+              <div class="name">${item.name}</div>
+              <div class="price">${item.price}</div>
+            </div>
+            ${item.badge ? `<div class="badge">${item.badge}</div>` : ``}
+          </div>
+          <ul>${item.bullets.map(b=>`<li>${b}</li>`).join("")}</ul>
+          <div class="cardBtns">
+            <a class="btn btnPrimary" href="#kontak">Order</a>
+            <a class="btn" href="#paket">Back</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      wrap.appendChild(grid);
+      cats.appendChild(wrap);
     }
 
-    document.addEventListener("DOMContentLoaded", ()=>{
-      mountTheme();
-      render();
-      observeReveal();
-    });
+    render();
   </script>
 </body>
 </html>
