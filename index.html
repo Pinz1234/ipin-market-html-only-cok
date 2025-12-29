@@ -3,215 +3,230 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>IPIN MARKET — Panel • Sewa Bot • Script</title>
-  <meta name="description" content="IPIN MARKET: Panel Pterodactyl, Sewa Bot, dan Script. UI premium, mobile friendly, dark/light mode." />
+  <meta name="theme-color" content="#0b1220" />
+  <title>IPIN MARKET</title>
+  <meta name="description" content="IPIN MARKET — Panel • Sewa Bot • Script. Clean, modern, premium." />
 
   <style>
     :root{
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --radius: 18px;
-      --radius2: 24px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --max: 1180px;
-      --shadow: 0 18px 55px rgba(0,0,0,.35);
-      --shadow2: 0 10px 35px rgba(0,0,0,.18);
-      --ring: 0 0 0 6px rgba(139,92,246,.14);
+      --r: 16px;
+      --r2: 22px;
 
-      /* dark */
-      --bg0:#060815;
-      --bg1:#080b1a;
+      /* Dark (default) */
+      --bg0:#070b14;
+      --bg1:#0b1220;
       --card: rgba(255,255,255,.06);
       --card2: rgba(255,255,255,.09);
       --stroke: rgba(255,255,255,.12);
+
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
       --muted2: rgba(255,255,255,.48);
 
-      --brand:#8b5cf6;
-      --brand2:#ec4899;
-      --good:#22c55e;
-      --warn:#f59e0b;
-      --danger:#ef4444;
+      --acc:#3b82f6;        /* blue */
+      --acc2:#22c55e;       /* green */
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --shadow2: 0 12px 34px rgba(0,0,0,.28);
+      --ring: 0 0 0 6px rgba(59,130,246,.14);
     }
     :root[data-theme="light"]{
-      --bg0:#f7f8ff;
-      --bg1:#eef1ff;
+      --bg0:#f6f8ff;
+      --bg1:#eef2ff;
       --card: rgba(0,0,0,.04);
       --card2: rgba(0,0,0,.06);
-      --stroke: rgba(0,0,0,.10);
+      --stroke: rgba(0,0,0,.12);
+
       --text: rgba(10,14,24,.92);
       --muted: rgba(10,14,24,.68);
       --muted2: rgba(10,14,24,.50);
-      --shadow: 0 18px 55px rgba(0,0,0,.10);
-      --shadow2: 0 10px 35px rgba(0,0,0,.08);
+
+      --shadow: 0 20px 60px rgba(0,0,0,.12);
+      --shadow2: 0 12px 34px rgba(0,0,0,.10);
+      --ring: 0 0 0 6px rgba(59,130,246,.10);
     }
-    *{ box-sizing:border-box }
-    html,body{ height:100% }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0; font-family:var(--font); color:var(--text);
       background:
-        radial-gradient(1100px 560px at 18% 8%, rgba(139,92,246,.18), transparent 60%),
-        radial-gradient(900px 520px at 86% 18%, rgba(236,72,153,.14), transparent 58%),
-        radial-gradient(900px 600px at 50% 96%, rgba(34,197,94,.09), transparent 62%),
-        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 80%, var(--bg0) 100%);
+        radial-gradient(1100px 520px at 15% 10%, rgba(59,130,246,.16), transparent 60%),
+        radial-gradient(900px 480px at 85% 20%, rgba(34,197,94,.10), transparent 58%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 70%, var(--bg0) 100%);
       overflow-x:hidden;
     }
-    a{ color:inherit; text-decoration:none }
-    .wrap{ max-width:var(--max); margin:0 auto; padding:18px }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px}
 
     /* NAV */
     .nav{
       position:sticky; top:0; z-index:60;
       backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(10,12,28,.82), rgba(10,12,28,.55));
-      border-bottom:1px solid rgba(255,255,255,.06);
+      background: linear-gradient(180deg, rgba(10,14,26,.82), rgba(10,14,26,.55));
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
     :root[data-theme="light"] .nav{
-      background: linear-gradient(180deg, rgba(247,248,255,.85), rgba(247,248,255,.55));
-      border-bottom:1px solid rgba(0,0,0,.08);
+      background: linear-gradient(180deg, rgba(246,248,255,.88), rgba(246,248,255,.55));
+      border-bottom:1px solid rgba(0,0,0,.10);
     }
-    .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0 }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight:950; letter-spacing:.3px }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px}
     .logo{
-      width:36px;height:36px;border-radius:12px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 45%),
-        linear-gradient(135deg, var(--brand) 0%, var(--brand2) 100%);
+      width:38px;height:38px;border-radius:14px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 45%),
+                  linear-gradient(135deg, rgba(59,130,246,.95), rgba(15,23,42,.9));
       border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 12px 30px rgba(139,92,246,.22);
+      box-shadow: 0 12px 30px rgba(59,130,246,.18);
     }
-    :root[data-theme="light"] .logo{ border:1px solid rgba(0,0,0,.10) }
-    .brand small{ display:block; color:var(--muted2); font-weight:900; margin-top:1px }
+    :root[data-theme="light"] .logo{border:1px solid rgba(0,0,0,.10)}
+    .brand small{display:block; margin-top:1px; color:var(--muted2); font-weight:800}
 
-    .nav-links{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end }
+    .nav-links{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:9px 12px; border-radius:999px;
       border:1px solid var(--stroke);
       background: var(--card);
-      color: var(--text);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      user-select:none; cursor:pointer; font-size:14px; font-weight:950;
+      font-weight:900; font-size:14px;
+      cursor:pointer;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      user-select:none;
     }
-    .pill:hover{ transform: translateY(-1px); background: var(--card2) }
+    .pill:hover{transform: translateY(-1px); background: var(--card2); box-shadow: var(--ring)}
     .pill.primary{
       border:none;
-      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(236,72,153,.90));
-      box-shadow: 0 14px 34px rgba(236,72,153,.15);
+      background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(37,99,235,.92));
       color:white;
+      box-shadow: 0 16px 38px rgba(59,130,246,.18);
     }
-    .pill.primary:hover{ transform: translateY(-2px) }
+    .pill.primary:hover{transform: translateY(-2px); box-shadow: 0 18px 44px rgba(59,130,246,.22)}
 
     /* HERO */
-    .hero{ padding:42px 0 14px }
-    .grid-hero{ display:grid; grid-template-columns:1.25fr .75fr; gap:14px; align-items:stretch }
+    .hero{padding:44px 0 12px}
+    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:14px}
     .card{
-      border-radius: var(--radius2);
-      border: 1px solid var(--stroke);
+      border-radius: var(--r2);
+      border:1px solid var(--stroke);
       background: linear-gradient(180deg, var(--card2), var(--card));
       box-shadow: var(--shadow);
     }
-    .hero-left{ padding:26px }
+    .hero-left{padding:26px}
     .kicker{
       display:inline-flex; gap:8px; align-items:center;
       padding:7px 10px; border-radius:999px;
       border:1px solid var(--stroke);
       background: var(--card);
-      color: var(--muted);
-      font-size:13px; font-weight:950;
+      color:var(--muted);
+      font-size:13px; font-weight:900;
     }
-    .dot{ width:8px; height:8px; border-radius:999px; background:var(--good); box-shadow: var(--ring) }
-    h1{ margin:14px 0 10px; font-size: clamp(28px, 4.6vw, 46px); line-height:1.06; letter-spacing:-.8px }
-    .sub{ color: var(--muted); font-size:15px; line-height:1.7 }
-    .actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--acc2); box-shadow: var(--ring)}
+    h1{margin:14px 0 10px; font-size: clamp(28px, 4.6vw, 46px); line-height:1.07; letter-spacing:-.8px}
+    .sub{margin:0 0 16px; color:var(--muted); font-size:15px; line-height:1.7}
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
 
     .btn{
-      display:inline-flex; justify-content:center; align-items:center; gap:8px;
-      padding:11px 13px; border-radius:16px;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 14px; border-radius: 16px;
       border:1px solid var(--stroke);
       background: var(--card);
+      font-weight:950;
       cursor:pointer;
-      transition: transform .14s ease, background .14s ease;
-      font-weight:950; font-size:14px; user-select:none;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      user-select:none;
     }
-    .btn:hover{ transform: translateY(-1px); background: var(--card2) }
+    .btn:hover{transform: translateY(-1px); background: var(--card2); box-shadow: var(--ring)}
     .btn.primary{
       border:none;
-      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(236,72,153,.90));
+      background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(37,99,235,.92));
       color:white;
+      box-shadow: 0 16px 38px rgba(59,130,246,.18);
     }
-    .btn.primary:hover{ transform: translateY(-2px) }
+    .btn.primary:hover{transform: translateY(-2px); box-shadow: 0 18px 44px rgba(59,130,246,.22)}
 
-    .hero-right{ padding:18px }
-    .mini{ display:grid; gap:10px; height:100% }
+    .hero-right{padding:18px}
+    .mini{display:grid; gap:10px}
     .box{
-      border-radius: var(--radius);
+      border-radius: var(--r);
       border:1px solid var(--stroke);
       background: var(--card);
       padding:14px;
     }
-    .box h3{ margin:0 0 6px; font-size:14px }
-    .box p{ margin:0; color:var(--muted); font-size:13px; line-height:1.6 }
+    .box h3{margin:0 0 6px; font-size:14px}
+    .box p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
 
-    /* SECTIONS */
-    .section{ padding:22px 0 }
-    .section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:12px }
-    h2{ margin:0; font-size:18px }
-    .hint{ color:var(--muted2); font-size:13px; font-weight:900 }
-    .grid{ display:grid; gap:12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* SECTION */
+    .section{padding:22px 0}
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:12px}
+    h2{margin:0; font-size:18px}
+    .hint{color:var(--muted2); font-size:13px; font-weight:900}
 
+    .grid{display:grid; gap:12px; grid-template-columns: repeat(3, minmax(0, 1fr))}
     .tile{
-      border-radius: var(--radius2);
+      border-radius: var(--r2);
       border:1px solid var(--stroke);
       background: var(--card);
       padding:16px;
-      transition: transform .16s ease, background .16s ease;
-      position:relative; overflow:hidden;
       box-shadow: var(--shadow2);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      position:relative;
+      overflow:hidden;
     }
-    .tile:hover{ transform: translateY(-2px); background: var(--card2) }
+    .tile:hover{transform: translateY(-2px); background: var(--card2); box-shadow: var(--shadow)}
     .badge{
       position:absolute; top:12px; right:12px;
-      padding:6px 9px; border-radius:999px; font-size:12px;
+      padding:6px 10px; border-radius:999px;
       border:1px solid var(--stroke);
       background: var(--card2);
-      font-weight:950;
+      font-weight:950; font-size:12px;
+      color: var(--text);
     }
-    .tile h3{ margin:0; font-size:16px; letter-spacing:-.2px }
-    .list{ margin-top:10px; display:grid; gap:6px }
-    .li{
-      display:flex; align-items:center; gap:8px;
-      color:var(--muted); font-size:13px; line-height:1.5;
-    }
+    .badge.reco{border-color: rgba(34,197,94,.28); background: rgba(34,197,94,.10)}
+    .badge.best{border-color: rgba(59,130,246,.32); background: rgba(59,130,246,.12)}
+    .tile h3{margin:0; font-size:16px}
+    .list{margin-top:10px; display:grid; gap:6px}
+    .li{display:flex; gap:8px; align-items:center; color:var(--muted); font-size:13px; line-height:1.5}
     .ico{
-      width:18px; height:18px; border-radius:8px;
+      width:18px;height:18px;border-radius:8px;
       border:1px solid var(--stroke);
       background: var(--card2);
       display:flex; align-items:center; justify-content:center;
       font-size:12px;
     }
-    .amt{ margin-top:12px; font-weight:950; font-size:20px; letter-spacing:-.3px }
-    .amt span{ font-size:12px; color:var(--muted2); font-weight:950 }
-    .btnrow{ display:flex; gap:8px; margin-top:12px }
-    .btn.sm{ width:100%; padding:10px 12px; border-radius:14px; font-size:13px }
-
-    /* CONTACT */
-    .contact-card{ padding:16px }
-
-    /* DASHBOARD modal */
-    .modal-backdrop{
-      position:fixed; inset:0; background: rgba(0,0,0,.45);
-      display:none; align-items:center; justify-content:center;
-      padding:18px; z-index:100;
+    .amt{margin-top:12px; font-weight:950; font-size:20px}
+    .amt span{font-size:12px; color:var(--muted2); font-weight:900}
+    .btnrow{display:flex; gap:8px; margin-top:12px}
+    .btn.sm{width:100%; padding:10px 12px; border-radius:14px; font-size:13px}
+    .btn.alt{
+      border:1px solid rgba(34,197,94,.28);
+      background: rgba(34,197,94,.10);
     }
-    .modal{ width:min(980px, 100%); max-height: 88vh; overflow:auto; }
-    .modal .inner{ padding:16px }
-    .row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px }
-    .field{ display:grid; gap:6px; margin-top:10px }
-    label{ font-size:12px; color:var(--muted2); font-weight:950 }
+    .btn.alt:hover{box-shadow: 0 0 0 6px rgba(34,197,94,.10)}
+
+    /* MODAL (FIXED) */
+    .modal-backdrop{
+      position:fixed; inset:0; z-index:200;
+      display:none; align-items:center; justify-content:center;
+      padding:18px;
+      background: rgba(0,0,0,.55);
+    }
+    .modal{
+      width:min(920px, 100%);
+      max-height: 88vh;
+      overflow:auto;
+      border-radius: var(--r2);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, var(--card2), var(--card));
+      box-shadow: var(--shadow);
+    }
+    .modal-inner{padding:16px}
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .field{display:grid; gap:6px; margin-top:10px; flex:1; min-width:240px}
+    label{font-size:12px; color:var(--muted2); font-weight:900}
     input, textarea{
       width:100%;
-      padding:12px 12px;
+      padding:12px;
       border-radius:14px;
       border:1px solid var(--stroke);
       background: var(--card);
@@ -219,15 +234,8 @@
       outline:none;
       font-weight:800;
     }
-    textarea{ min-height:170px; resize:vertical; font-weight:700; line-height:1.5 }
-    .note{ color:var(--muted); font-size:13px; line-height:1.6 }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .dangerBtn{ background: rgba(239,68,68,.14); border:1px solid rgba(239,68,68,.30) }
-
-    /* FOOTER */
-    .footer{ padding:26px 0 40px; color:var(--muted2); font-size:13px }
-    .footer-grid{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap }
-    .links{ display:flex; gap:10px; flex-wrap:wrap }
+    textarea{min-height:220px; resize:vertical; font-weight:700; line-height:1.5}
+    .note{color:var(--muted); font-size:13px; line-height:1.6}
 
     /* TOAST */
     .toast{
@@ -237,40 +245,39 @@
       border:1px solid rgba(255,255,255,.12);
       color:rgba(255,255,255,.92);
       backdrop-filter: blur(10px);
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
-      font-size:13px; font-weight:900;
       opacity:0; pointer-events:none;
       transition: opacity .18s ease, transform .18s ease;
-      z-index:120;
+      z-index:300;
+      font-weight:900;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
     }
     :root[data-theme="light"] .toast{
-      background: rgba(255,255,255,.80);
+      background: rgba(255,255,255,.85);
       border:1px solid rgba(0,0,0,.12);
-      color: rgba(0,0,0,.80);
+      color: rgba(0,0,0,.84);
     }
-    .toast.show{ opacity:1; transform:translateX(-50%) translateY(-2px) }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(-2px)}
 
-    /* Responsive */
+    /* REVEAL */
+    .reveal{opacity:0; transform: translateY(18px); transition: all .65s cubic-bezier(.2,.8,.2,1)}
+    .reveal.show{opacity:1; transform: translateY(0)}
+
     @media (max-width: 980px){
-      .grid-hero{ grid-template-columns: 1fr }
-      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)) }
+      .hero-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
     }
     @media (max-width: 520px){
-      .grid{ grid-template-columns: 1fr }
-      .nav-links .pill.link{ display:none }
-      .hero-left{ padding:20px }
-      .hero-right{ padding:14px }
+      .grid{grid-template-columns:1fr}
+      .nav-links .pill.link{display:none}
     }
-    html{ scroll-behavior:smooth }
-    @media (prefers-reduced-motion: reduce){ *{ transition:none !important; scroll-behavior:auto !important } }
+    html{scroll-behavior:smooth}
   </style>
 </head>
 
 <body>
-  <!-- NAV -->
   <div class="nav">
     <div class="wrap nav-inner">
-      <div class="brand">
+      <div class="brand reveal">
         <div class="logo"></div>
         <div>
           <div style="line-height:1.1">IPIN MARKET</div>
@@ -278,12 +285,12 @@
         </div>
       </div>
 
-      <div class="nav-links">
+      <div class="nav-links reveal">
         <a class="pill link" href="#panel">Panel</a>
         <a class="pill link" href="#sewa">Sewa Bot</a>
         <a class="pill link" href="#script">Script</a>
         <a class="pill link" href="#contact">Kontak</a>
-        <button class="pill" id="themeToggle" type="button">🌙 Dark</button>
+        <button class="pill" id="themeToggle" type="button">🌙</button>
         <button class="pill" id="btnDashboard" type="button">Dashboard</button>
         <button class="pill primary" id="quickOrder" type="button">Order Cepat</button>
       </div>
@@ -291,180 +298,143 @@
   </div>
 
   <main class="wrap">
-    <!-- HERO -->
     <section class="hero" id="home">
-      <div class="grid-hero">
-        <div class="card hero-left">
-          <div class="kicker"><span class="dot"></span> Premium UI • enak dibaca • dark/light mode</div>
-          <h1>Promosi rapi, buyer makin percaya.</h1>
+      <div class="hero-grid">
+        <div class="card hero-left reveal">
+          <div class="kicker"><span class="dot"></span> Clean • Modern • Premium</div>
+          <h1>Panel, sewa bot, dan script.</h1>
           <p class="sub">
-            Ini versi <b>simple 1 file</b> tapi tetap premium.
-            Klik paket → otomatis buka WhatsApp dengan format order.
-            (Autoorder/QR nanti kalau kamu bilang: <b>“lanjut autoorder”</b>)
+            Klik paket → format order otomatis ke WhatsApp.  
+            Untuk <b>SC MD</b> ada tombol <b>TEST</b> (masuk grup).
           </p>
-
           <div class="actions">
-            <a class="btn primary" href="#panel">Lihat Paket Panel</a>
+            <a class="btn primary" href="#panel">Lihat Panel</a>
             <a class="btn" href="#sewa">Sewa Bot</a>
             <a class="btn" href="#script">Promo Script</a>
           </div>
         </div>
 
-        <div class="card hero-right">
+        <div class="card hero-right reveal">
           <div class="mini">
             <div class="box">
-              <h3>Gaya Alip (Panel)</h3>
-              <p>Paket panel + spek + badge recommended/terbaik.</p>
+              <h3>Order</h3>
+              <p>Pilih paket → klik Pesan → chat admin kebuka otomatis.</p>
             </div>
             <div class="box">
-              <h3>Dashboard built-in</h3>
-              <p>Edit harga/paket/link langsung dari HP (localStorage).</p>
+              <h3>Test Script</h3>
+              <p>Khusus MD ada tombol test ke grup kamu.</p>
             </div>
             <div class="box">
-              <h3>Order satset</h3>
-              <p>1 klik → WA kebuka + format rapi.</p>
+              <h3>Edit dari HP</h3>
+              <p>Pakai dashboard buat ubah harga/link & data.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PANEL -->
     <section class="section" id="panel">
       <div class="section-head">
-        <h2>Panel Pterodactyl</h2>
-        <div class="hint">Gaya paket + spek ngikutin contoh Alip</div>
+        <h2 class="reveal">Panel Pterodactyl</h2>
+        <div class="hint reveal">Paket & spek</div>
       </div>
       <div class="grid" id="panelGrid"></div>
     </section>
 
-    <!-- SEWA -->
     <section class="section" id="sewa">
       <div class="section-head">
-        <h2>Sewa Bot</h2>
-        <div class="hint">Maks 2 bulan = 60K (udah diset)</div>
+        <h2 class="reveal">Sewa Bot</h2>
+        <div class="hint reveal">Maks 2 bulan = 60K</div>
       </div>
       <div class="grid" id="sewaGrid"></div>
     </section>
 
-    <!-- SCRIPT -->
     <section class="section" id="script">
       <div class="section-head">
-        <h2>Promo Script</h2>
-        <div class="hint">Klik pesan → WA auto</div>
+        <h2 class="reveal">Promo Script</h2>
+        <div class="hint reveal">MD ada TEST • Bug tidak</div>
       </div>
       <div class="grid" id="scriptGrid"></div>
-
-      <div class="card" style="margin-top:12px; padding:16px">
-        <div style="font-weight:950; margin-bottom:6px">Catatan</div>
-        <div class="note">
-          Setelah order: buyer kirim bukti → admin konfirmasi → file/dokumen dikirim.
-          Autoorder/QR belum diaktifkan (sesuai kamu tunda).
-        </div>
-      </div>
     </section>
 
-    <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="section-head">
-        <h2>Kontak</h2>
-        <div class="hint">Klik biar langsung ke link resmi</div>
+        <h2 class="reveal">Kontak</h2>
+        <div class="hint reveal">Link resmi</div>
       </div>
 
-      <div class="card contact-card">
-        <div class="row">
-          <a class="pill primary" id="waBtn" href="#" target="_blank" rel="noreferrer">WhatsApp Admin</a>
+      <div class="card reveal" style="padding:16px">
+        <div class="actions" style="margin:0">
+          <a class="pill primary" id="waBtn" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
           <a class="pill" id="tgBtn" href="#" target="_blank" rel="noreferrer">Telegram</a>
           <a class="pill" id="groupBtn" href="#" target="_blank" rel="noreferrer">Grup WA</a>
           <a class="pill" id="channelBtn" href="#" target="_blank" rel="noreferrer">Channel WA</a>
         </div>
-        <div style="margin-top:12px" class="note">
-          Tips: Klik paket → “Pesan Sekarang” biar format chat rapi (paket, harga, spek).
+        <div class="note" style="margin-top:12px">
+          Setelah bayar/TF, kirim bukti ke admin untuk konfirmasi.
         </div>
       </div>
     </section>
 
-    <footer class="footer">
-      <div class="footer-grid">
-        <div>
-          <div style="font-weight:950">IPIN MARKET</div>
-          <div>© <span id="year"></span> • 1 file • premium • responsive</div>
-        </div>
-        <div class="links">
-          <a class="pill" href="#panel">Panel</a>
-          <a class="pill" href="#sewa">Sewa Bot</a>
-          <a class="pill" href="#script">Script</a>
-          <a class="pill" href="#contact">Kontak</a>
-        </div>
-      </div>
-    </footer>
+    <div class="note reveal" style="padding:18px 0 40px">
+      © <span id="year"></span> IPIN MARKET
+    </div>
   </main>
 
-  <!-- DASHBOARD MODAL -->
+  <!-- MODAL -->
   <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-    <div class="card modal">
-      <div class="inner">
+    <div class="modal">
+      <div class="modal-inner">
         <div style="display:flex; justify-content:space-between; gap:10px; align-items:center">
           <div>
-            <div style="font-weight:950; font-size:16px">Dashboard (simple)</div>
-            <div class="note">Edit paket/link → Save. Tersimpan di HP (localStorage).</div>
+            <div style="font-weight:950; font-size:16px">Dashboard</div>
+            <div class="note">Edit link & data → Save</div>
           </div>
           <button class="pill" id="btnClose" type="button">Tutup</button>
         </div>
 
-        <div class="row" style="margin-top:10px">
-          <div style="flex:1; min-width:240px">
-            <div class="field">
-              <label>WhatsApp (wa.me)</label>
-              <input id="cfg_wa" placeholder="https://wa.me/62822xxxx" />
-            </div>
-            <div class="field">
-              <label>Telegram</label>
-              <input id="cfg_tg" placeholder="https://t.me/xxxxx" />
-            </div>
-            <div class="field">
-              <label>Grup WA</label>
-              <input id="cfg_group" placeholder="https://chat.whatsapp.com/..." />
-            </div>
-            <div class="field">
-              <label>Channel WA</label>
-              <input id="cfg_channel" placeholder="https://whatsapp.com/channel/..." />
-            </div>
+        <div class="row">
+          <div class="field">
+            <label>WhatsApp (wa.me)</label>
+            <input id="cfg_wa" />
           </div>
+          <div class="field">
+            <label>Telegram</label>
+            <input id="cfg_tg" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Grup WA (untuk TEST)</label>
+            <input id="cfg_group" />
+          </div>
+          <div class="field">
+            <label>Channel WA</label>
+            <input id="cfg_channel" />
+          </div>
+        </div>
 
-          <div style="flex:1; min-width:240px">
-            <div class="field">
-              <label>DATA JSON (panel/sewa/script)</label>
-              <textarea id="dataJson" class="mono"></textarea>
-            </div>
-          </div>
+        <div class="field">
+          <label>DATA JSON (panel/sewa/script)</label>
+          <textarea id="dataJson"></textarea>
         </div>
 
         <div class="row">
           <button class="btn primary" id="btnSave" type="button">Save</button>
-          <button class="btn" id="btnReset" type="button">Reset Default</button>
+          <button class="btn" id="btnReset" type="button">Reset</button>
           <button class="btn" id="btnExport" type="button">Export</button>
           <button class="btn" id="btnImport" type="button">Import</button>
-          <button class="btn dangerBtn" id="btnClear" type="button">Hapus Local Data</button>
-        </div>
-
-        <div class="note" style="margin-top:10px">
-          Kalau mau dashboard yang beneran aman (login + supabase), nanti bilang: <b>“lanjut autoorder”</b>.
         </div>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast"></div>
 
   <script>
-    // =========================
-    // DEFAULT DATA (Alip-style)
-    // =========================
-    const STORE_KEY = "ipin_market_onefile_v1";
+    const STORE_KEY = "ipin_market_clean_v1";
 
     const DEFAULT_CFG = {
-      brand: "IPIN MARKET",
       wa: "https://wa.me/6282261169349",
       telegram: "https://t.me/IPINSHOP",
       waGroup: "https://chat.whatsapp.com/LvA30WKiFgB0t5yFjFmWsz?mode=hqrc",
@@ -473,28 +443,26 @@
 
     const DEFAULT_DATA = {
       panel: [
-        { name:"1GB", price:3000, badge:"", items:["1.5GB RAM","3GB Disk","100% CPU","Garansi 30 Hari"] },
-        { name:"2GB", price:5000, badge:"", items:["3.5GB RAM","6GB Disk","190% CPU","Garansi 30 Hari"] },
-        { name:"3GB", price:7000, badge:"", items:["4GB RAM","7GB Disk","250% CPU","Garansi 30 Hari"] },
-        { name:"4GB", price:9000, badge:"Recommended", items:["5GB RAM","9GB Disk","290% CPU","Garansi 30 Hari"] },
-        { name:"5GB", price:11000, badge:"", items:["6GB RAM","13GB Disk","330% CPU","Garansi 30 Hari"] },
-        { name:"6GB", price:13000, badge:"", items:["7GB RAM","15GB Disk","450% CPU","Garansi 30 Hari"] },
-        { name:"7GB", price:15000, badge:"", items:["8GB RAM","17GB Disk","500% CPU","Garansi 30 Hari"] },
-        { name:"PREMIUM", price:25000, badge:"TERBAIK", items:["RAM Unlimited","25GB Disk","CPU Unlimited","Garansi 30 Hari"] },
+        { name:"1GB", price:3000, badge:"", badgeStyle:"", items:["1.5GB RAM","3GB Disk","100% CPU","Garansi 30 Hari"] },
+        { name:"2GB", price:5000, badge:"", badgeStyle:"", items:["3.5GB RAM","6GB Disk","190% CPU","Garansi 30 Hari"] },
+        { name:"3GB", price:7000, badge:"", badgeStyle:"", items:["4GB RAM","7GB Disk","250% CPU","Garansi 30 Hari"] },
+        { name:"4GB", price:9000, badge:"Recommended", badgeStyle:"reco", items:["5GB RAM","9GB Disk","290% CPU","Garansi 30 Hari"] },
+        { name:"5GB", price:11000, badge:"", badgeStyle:"", items:["6GB RAM","13GB Disk","330% CPU","Garansi 30 Hari"] },
+        { name:"6GB", price:13000, badge:"", badgeStyle:"", items:["7GB RAM","15GB Disk","450% CPU","Garansi 30 Hari"] },
+        { name:"7GB", price:15000, badge:"", badgeStyle:"", items:["8GB RAM","17GB Disk","500% CPU","Garansi 30 Hari"] },
+        { name:"PREMIUM", price:25000, badge:"TERBAIK", badgeStyle:"best", items:["RAM Unlimited","25GB Disk","CPU Unlimited","Garansi 30 Hari"] }
       ],
       sewa: [
-        { name:"15 Hari", price:15000, badge:"", items:["Akses Premium Fitur","Online 24 Jam","Anti Delay / Error","+ Fitur terus bertambah"] },
-        { name:"1 Bulan", price:35000, badge:"REKOMENDASI", items:["Akses Premium Fitur","Online 24 Jam","Anti Delay / Error","+ Fitur terus bertambah","Fitur jaga grup lengkap"] },
-        { name:"2 Bulan", price:60000, badge:"BEST", items:["Akses Premium Fitur","Online 24 Jam","Anti Delay / Error","+ Fitur terus bertambah","Fitur jaga grup lengkap"] },
+        { name:"15 Hari", price:15000, badge:"", badgeStyle:"", items:["Akses premium","Online 24 jam","Anti delay/error","+ fitur bertambah"] },
+        { name:"1 Bulan", price:35000, badge:"Recommended", badgeStyle:"reco", items:["Akses premium","Online 24 jam","Anti delay/error","+ fitur bertambah","Jaga grup"] },
+        { name:"2 Bulan", price:60000, badge:"TERBAIK", badgeStyle:"best", items:["Akses premium","Online 24 jam","Anti delay/error","+ fitur bertambah","Jaga grup"] }
       ],
       script: [
-        { name:"SC IPIN MD V7", price:55000, badge:"FEATURED", items:["Multifungsi","Stabil","Fitur banyak","Support pemasangan"] }
+        { name:"SC IPIN MD V7", price:55000, category:"md", badge:"MD", badgeStyle:"reco", items:["Multi device","Stabil","Fitur lengkap","Support pasang"] },
+        { name:"SC BUG OTAX", price:40000, category:"bug", badge:"BUG", badgeStyle:"", items:["Bug only","No test","Private"] }
       ]
     };
 
-    // =========================
-    // Helpers
-    // =========================
     const rupiah = (n) => "Rp" + new Intl.NumberFormat("id-ID").format(n);
 
     const toastEl = document.getElementById("toast");
@@ -503,7 +471,7 @@
       toastEl.textContent = msg;
       toastEl.classList.add("show");
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1400);
+      toastTimer = setTimeout(()=>toastEl.classList.remove("show"), 1400);
     }
 
     function loadStore(){
@@ -511,164 +479,119 @@
         const raw = localStorage.getItem(STORE_KEY);
         if(!raw) return { cfg: DEFAULT_CFG, data: DEFAULT_DATA };
         const obj = JSON.parse(raw);
-        return {
-          cfg: obj.cfg || DEFAULT_CFG,
-          data: obj.data || DEFAULT_DATA
-        };
+        return { cfg: obj.cfg || DEFAULT_CFG, data: obj.data || DEFAULT_DATA };
       }catch(e){
         return { cfg: DEFAULT_CFG, data: DEFAULT_DATA };
       }
     }
-    function saveStore(payload){
-      localStorage.setItem(STORE_KEY, JSON.stringify(payload));
-    }
+    function saveStore(payload){ localStorage.setItem(STORE_KEY, JSON.stringify(payload)); }
 
     function mountTheme(){
       const root = document.documentElement;
       const saved = localStorage.getItem("theme") || "dark";
       root.setAttribute("data-theme", saved);
-
-      const btn = document.getElementById("themeToggle");
-      btn.textContent = saved === "light" ? "🌞 Light" : "🌙 Dark";
-      btn.onclick = () => {
-        const cur = root.getAttribute("data-theme") || "dark";
+      document.getElementById("themeToggle").textContent = saved === "light" ? "☀️" : "🌙";
+      document.getElementById("themeToggle").onclick = ()=>{
+        const cur = root.getAttribute("data-theme");
         const next = cur === "light" ? "dark" : "light";
         root.setAttribute("data-theme", next);
         localStorage.setItem("theme", next);
-        btn.textContent = next === "light" ? "🌞 Light" : "🌙 Dark";
-        toast("Mode: " + (next === "light" ? "Terang" : "Gelap"));
+        document.getElementById("themeToggle").textContent = next === "light" ? "☀️" : "🌙";
+        toast(next === "light" ? "Light" : "Dark");
       };
     }
 
     function mountLinks(cfg){
-      const waBtn = document.getElementById("waBtn");
-      const tgBtn = document.getElementById("tgBtn");
-      const groupBtn = document.getElementById("groupBtn");
-      const channelBtn = document.getElementById("channelBtn");
-      if(waBtn) waBtn.href = cfg.wa;
-      if(tgBtn) tgBtn.href = cfg.telegram;
-      if(groupBtn) groupBtn.href = cfg.waGroup;
-      if(channelBtn) channelBtn.href = cfg.waChannel;
+      document.getElementById("waBtn").href = cfg.wa;
+      document.getElementById("tgBtn").href = cfg.telegram;
+      document.getElementById("groupBtn").href = cfg.waGroup;
+      document.getElementById("channelBtn").href = cfg.waChannel;
       document.getElementById("year").textContent = new Date().getFullYear();
     }
 
     function openWA(cfg, msg){
-      const url = (cfg.wa || DEFAULT_CFG.wa) + "?text=" + encodeURIComponent(msg);
+      const url = cfg.wa + "?text=" + encodeURIComponent(msg);
       window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    function orderTemplate(cfg, type, title, price, items){
-      const head = [
-        `Halo admin ${cfg.brand || "IPIN MARKET"}, saya mau order.`,
+    function orderMsg(type, x){
+      const lines = [
+        "Halo admin, saya mau order.",
         "",
         "Tipe: " + type,
-        "Paket: " + title,
-        "Harga: " + rupiah(price),
+        "Produk: " + x.name,
+        "Harga: " + rupiah(x.price),
         "Detail:",
-        ...items.map(x => "- " + x),
+        ...(x.items||[]).map(t=>"- " + t),
         "",
-        "Data:",
-        "- Nama:",
-        "- Nomor WhatsApp:",
-        "- Catatan:"
+        "Nama:",
+        "Nomor WA:",
+        "Catatan:"
       ];
       if(type === "Panel"){
-        head.push("", "Panel data (opsional):", "- Username panel:", "- Password:");
+        lines.push("", "Username panel:", "Password (opsional):");
       }
-      return head.join("\n");
+      return lines.join("\n");
     }
 
-    function li(icon, text){
-      return `<div class="li"><span class="ico">${icon}</span><span>${text}</span></div>`;
-    }
-
-    function tileHTML(type, x){
-      const badge = x.badge ? `<div class="badge">${x.badge}</div>` : "";
+    function tileHTML(x, perText){
+      const badge = x.badge ? `<div class="badge ${x.badgeStyle||""}">${x.badge}</div>` : "";
       const icons = ["⚡","🛡️","💾","🚀","✅","⭐"];
-      const list = (x.items || []).slice(0,6).map((t,i)=> li(icons[i] || "•", t)).join("");
+      const list = (x.items||[]).slice(0,6).map((t,i)=>`
+        <div class="li"><span class="ico">${icons[i]||"•"}</span><span>${t}</span></div>
+      `).join("");
 
-      const per = (type === "Panel") ? "/bulan" : "/paket";
+      const showTest = String(x.category||"").toLowerCase() === "md"; // MD only
+
       return `
-        <div class="tile">
+        <div class="tile reveal">
           ${badge}
-          <h3>${type === "Panel" ? x.name : x.name}</h3>
+          <h3>${x.name}</h3>
           <div class="list">${list}</div>
-          <div class="amt">${rupiah(x.price)} <span>${per}</span></div>
+          <div class="amt">${rupiah(x.price)} <span>${perText}</span></div>
           <div class="btnrow">
-            <button class="btn sm primary" data-order='${type}'>Pesan Sekarang</button>
-            <button class="btn sm" data-copy="1">Copy</button>
+            <button class="btn sm primary" data-order>Pesan</button>
+            ${showTest ? `<button class="btn sm alt" data-test>Test</button>` : ``}
           </div>
         </div>
       `;
     }
 
-    function render(){
-      const store = loadStore();
-      const { cfg, data } = store;
+    function hook(gridEl, cfg, type, arr){
+      [...gridEl.querySelectorAll(".tile")].forEach((tile, idx)=>{
+        const x = arr[idx];
+        tile.querySelector("[data-order]").onclick = ()=> openWA(cfg, orderMsg(type, x));
 
-      mountLinks(cfg);
-
-      const panelGrid = document.getElementById("panelGrid");
-      const sewaGrid = document.getElementById("sewaGrid");
-      const scriptGrid = document.getElementById("scriptGrid");
-
-      panelGrid.innerHTML = data.panel.map(x => tileHTML("Panel", x)).join("");
-      sewaGrid.innerHTML = data.sewa.map(x => tileHTML("Sewa Bot", x)).join("");
-      scriptGrid.innerHTML = data.script.map(x => tileHTML("Script", x)).join("");
-
-      // Hook button actions
-      function hook(gridEl, type, arr){
-        [...gridEl.querySelectorAll(".tile")].forEach((tile, idx)=>{
-          const x = arr[idx];
-          const btnOrder = tile.querySelector("[data-order]");
-          const btnCopy = tile.querySelector("[data-copy]");
-          btnOrder.onclick = ()=> {
-            const msg = orderTemplate(cfg, type, x.name, x.price, x.items || []);
-            openWA(cfg, msg);
+        const t = tile.querySelector("[data-test]");
+        if(t){
+          t.onclick = ()=> {
+            window.open(cfg.waGroup, "_blank", "noopener,noreferrer");
+            toast("Buka grup untuk test");
           };
-          btnCopy.onclick = async ()=> {
-            const txt = `${x.name} — ${rupiah(x.price)}\n${(x.items||[]).join(" • ")}`;
-            try{ await navigator.clipboard.writeText(txt); toast("Ke-copy ✔️"); }
-            catch(e){ toast("Gagal copy 😅"); }
-          };
-        });
-      }
-      hook(panelGrid, "Panel", data.panel);
-      hook(sewaGrid, "Sewa Bot", data.sewa);
-      hook(scriptGrid, "Script", data.script);
+        }
+      });
     }
 
-    // Dashboard modal
+    // Modal
     const modalBackdrop = document.getElementById("modalBackdrop");
-    const btnDashboard = document.getElementById("btnDashboard");
-    const btnClose = document.getElementById("btnClose");
-
     function openModal(){
       modalBackdrop.style.display = "flex";
-      modalBackdrop.setAttribute("aria-hidden","false");
-
       const store = loadStore();
-      document.getElementById("cfg_wa").value = store.cfg.wa || "";
-      document.getElementById("cfg_tg").value = store.cfg.telegram || "";
-      document.getElementById("cfg_group").value = store.cfg.waGroup || "";
-      document.getElementById("cfg_channel").value = store.cfg.waChannel || "";
+      document.getElementById("cfg_wa").value = store.cfg.wa;
+      document.getElementById("cfg_tg").value = store.cfg.telegram;
+      document.getElementById("cfg_group").value = store.cfg.waGroup;
+      document.getElementById("cfg_channel").value = store.cfg.waChannel;
       document.getElementById("dataJson").value = JSON.stringify(store.data, null, 2);
     }
-    function closeModal(){
-      modalBackdrop.style.display = "none";
-      modalBackdrop.setAttribute("aria-hidden","true");
-    }
+    function closeModal(){ modalBackdrop.style.display = "none"; }
 
-    btnDashboard.onclick = openModal;
-    btnClose.onclick = closeModal;
-    modalBackdrop.addEventListener("click", (e)=> { if(e.target === modalBackdrop) closeModal(); });
+    document.getElementById("btnDashboard").onclick = openModal;
+    document.getElementById("btnClose").onclick = closeModal;
+    modalBackdrop.addEventListener("click", (e)=>{ if(e.target===modalBackdrop) closeModal(); });
 
-    // Dashboard actions
     document.getElementById("btnSave").onclick = ()=>{
       try{
-        const store = loadStore();
         const cfg = {
-          ...store.cfg,
           wa: document.getElementById("cfg_wa").value.trim(),
           telegram: document.getElementById("cfg_tg").value.trim(),
           waGroup: document.getElementById("cfg_group").value.trim(),
@@ -677,59 +600,80 @@
         const data = JSON.parse(document.getElementById("dataJson").value);
         saveStore({ cfg, data });
         render();
-        toast("Saved ✔️");
+        toast("Saved");
         closeModal();
-      }catch(e){
-        alert("JSON error: " + e.message);
-      }
+      }catch(e){ alert("JSON error: " + e.message); }
     };
 
     document.getElementById("btnReset").onclick = ()=>{
       saveStore({ cfg: DEFAULT_CFG, data: DEFAULT_DATA });
       render();
-      toast("Reset ✔️");
+      toast("Reset");
       closeModal();
     };
 
     document.getElementById("btnExport").onclick = async ()=>{
       const raw = localStorage.getItem(STORE_KEY) || "";
-      try{ await navigator.clipboard.writeText(raw); toast("Export ke clipboard ✔️"); }
+      try{ await navigator.clipboard.writeText(raw); toast("Export OK"); }
       catch(e){ alert("Gagal export"); }
     };
 
     document.getElementById("btnImport").onclick = ()=>{
-      const txt = prompt("Paste export JSON di sini:");
+      const txt = prompt("Paste export JSON:");
       if(!txt) return;
       try{
-        const obj = JSON.parse(txt);
-        saveStore(obj);
+        saveStore(JSON.parse(txt));
         render();
-        toast("Import ✔️");
+        toast("Import OK");
         closeModal();
-      }catch(e){
-        alert("Import error: " + e.message);
-      }
+      }catch(e){ alert("Import error: " + e.message); }
     };
 
-    document.getElementById("btnClear").onclick = ()=>{
-      if(confirm("Yakin hapus local data?")){
-        localStorage.removeItem(STORE_KEY);
-        render();
-        toast("Local data dihapus");
-        closeModal();
-      }
-    };
-
-    // Quick order
     document.getElementById("quickOrder").onclick = ()=>{
       document.querySelector("#panel").scrollIntoView({behavior:"smooth", block:"start"});
-      toast("Pilih paket panel dulu ya ✨");
+      toast("Scroll ke panel");
     };
 
-    // Init
+    // Reveal
+    let observer=null;
+    function observeReveal(){
+      if(observer) observer.disconnect();
+      observer = new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add("show");
+            observer.unobserve(e.target);
+          }
+        });
+      },{threshold:.12});
+      document.querySelectorAll(".reveal").forEach(el=>{
+        if(!el.classList.contains("show")) observer.observe(el);
+      });
+    }
+
+    function render(){
+      const { cfg, data } = loadStore();
+      mountLinks(cfg);
+
+      const panelGrid = document.getElementById("panelGrid");
+      const sewaGrid = document.getElementById("sewaGrid");
+      const scriptGrid = document.getElementById("scriptGrid");
+
+      panelGrid.innerHTML = data.panel.map(x=>tileHTML(x,"/bulan")).join("");
+      sewaGrid.innerHTML = data.sewa.map(x=>tileHTML(x,"/paket")).join("");
+      scriptGrid.innerHTML = data.script.map(x=>tileHTML(x,"")).join("");
+
+      hook(panelGrid, cfg, "Panel", data.panel);
+      hook(sewaGrid, cfg, "Sewa Bot", data.sewa);
+      hook(scriptGrid, cfg, "Script", data.script);
+
+      observeReveal();
+    }
+
     document.addEventListener("DOMContentLoaded", ()=>{
       mountTheme();
       render();
+      observeReveal();
     });
   </script>
 </body>
